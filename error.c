@@ -25,8 +25,8 @@ int _putchar2(char c)
 }
 
 /**
- * free_argument - free all mallocs.
- * @argumento: pointer to free.
+ * free_cmd - free all mallocs.
+ * @cmd: pointer to free.
  */
 void free_cmd(char **cmd)
 {
@@ -38,8 +38,39 @@ void free_cmd(char **cmd)
 	{
 		free(cmd[i]);
 		cmd[i] = NULL;
-                i++;
+		i++;
 	}
 	free(cmd);
 	cmd = NULL;
+}
+/**
+ * free_argument - free all mallocs.
+ * @cmd: pointer to free.
+ */
+void free_argument(char **cmd)
+{
+	int i = 0;
+
+	if (!cmd)
+		return;
+	while (cmd[i])
+	{
+		free(cmd[i]);
+		cmd[i++] = NULL;
+	}
+	free(cmd);
+	cmd = NULL;
+}
+
+/**
+ * simple_free - free a pointer
+ * @buffer: pointer to free.
+ */
+void simple_free(char **buffer)
+{
+	if (buffer[0])
+	{
+		free(buffer[0]);
+		buffer[0] = NULL;
+	}
 }

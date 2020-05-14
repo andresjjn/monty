@@ -41,14 +41,31 @@ typedef struct instruction_s
 } instruction_t;
 
 char **read_file(const char *filename);
-char **strtok_cmd(char *buffer, int j);
+char **split_string(char *buffer, char d);
 int inter(char **cmd);
 void _puts2(char *str);
 int _putchar2(char c);
-void (*get_op_func(char *command, int line, char **cmd))(stack_t **stack, unsigned int line_number);
+void (*get(char *command, int line))(stack_t **stack, unsigned int line_number);
 void op_push(stack_t **stack, unsigned int line_number);
 void free_cmd(char **cmd);
 long int findSize(char file_name[]);
 int print_dlistint(const stack_t *h);
+char *clean_string(char *tmp, int len);
+void simple_free(char **buffer);
+void free_argument(char **cmd);
+unsigned int fsize(const char* file);
+void op_pall(stack_t **stack, unsigned int line_number);
+void op_pint(stack_t **stack, unsigned int line_number);
+void op_pop(stack_t **stack, unsigned int line_number);
+void op_swap(stack_t **stack, unsigned int line_number);
+void op_add(stack_t **stack, unsigned int line_number);
+void op_nop(stack_t **stack, unsigned int line_number);
+void op_sub(stack_t **stack, unsigned int line_number);
+void op_div(stack_t **stack, unsigned int line_number);
+void op_mul(stack_t **stack, unsigned int line_number);
+void op_mod(stack_t **stack, unsigned int line_number);
+void op_pchar(stack_t **stack, unsigned int line_number);
+void op_pstr(stack_t **stack, unsigned int line_number);
+void op_rotl(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */
