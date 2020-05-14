@@ -13,6 +13,7 @@ void (*get(char *command, int line))(stack_t **stack, unsigned int line_number)
 	instruction_t ops[] = {
 		{"push", op_push},
 		{"pall", op_pall},
+		{"pint", op_pint},
 		{NULL, NULL}
 	};
 	while (ops[i].opcode != NULL)
