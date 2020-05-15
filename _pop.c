@@ -10,23 +10,23 @@ void op_pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current, *next;
 
-    (void)line_number;
+	(void)line_number;
 	current = *stack;
-    if (current == NULL)
-    {
-		fprintf(stderr ,"L%u: can't pint, stack empty\n", line_number);
+	if (current == NULL)
+	{
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
-    }
-    next = current->next; 
+	}
+	next = current->next;
 
-    if(next != NULL)
-    {
-        next->prev = NULL;
-        *stack = next;
-        free(current);
-    }
-    else
-    {
-        free(current);
-    }
+	if (next != NULL)
+	{
+		next->prev = NULL;
+		*stack = next;
+		free(current);
+	}
+	else
+	{
+		free(current);
+	}
 }

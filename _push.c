@@ -28,7 +28,7 @@ void op_push(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-	       tmp = *stack;
+		tmp = *stack;
 
 		if (tmp != NULL)
 			tmp->prev = new;
