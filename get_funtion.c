@@ -24,8 +24,7 @@ void (*get(char *command, int line))(stack_t **stack, unsigned int line_number)
 		}
 		i++;
 	}
-	printf("L%d: unknown instruction %s\n", line, command);
+	fprintf(stderr, "L%d: unknown instruction %s\n", line, command);
 	free(command);
-	_puts2("EXIT_FAILURE\n");
-	exit(98);
+	exit(EXIT_FAILURE);
 }

@@ -16,26 +16,25 @@ char **read_file(const char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error: Can't open file %s\n", filename);
-		_puts2("EXIT_FAILURE\n");
-		exit(98);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
 	}
 	buffer = malloc(sizeof(char) * (letters + 1));
 	if (!buffer)
 	{
-		printf("Error: malloc failed");
-		_puts2("EXIT_FAILURE\n");
-		exit(98);
+		fprintf(stderr, "Error: malloc failed");
+		exit(EXIT_FAILURE);
 	}
 	_read = read(fd, buffer, letters);
 	if (_read == -1)
 	{
-		printf("Error: Can't open file %s\n", filename);
-		_puts2("EXIT_FAILURE\n");
-		exit(98);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
 	}
+	buffer[letters] = '\0';
 	buffer = clean_string(buffer, letters + 1);
 	cmd = split_string(buffer, '\n');
+	free(buffer);
 	close(fd);
 	return (cmd);
 }
@@ -60,7 +59,10 @@ char **split_string(char *buffer, char d)
 		j++;
 	cmd = malloc(sizeof(char *) * (j + 1));
 	if (!cmd)
-		return (NULL);
+	{
+		fprintf(stderr, "Error: malloc failed");
+		exit(EXIT_FAILURE);
+	}
 	for (len = 0, i = 0; i < n && buffer[i] && i <= f; i++)
 	{
 		len = 0;
@@ -70,8 +72,9 @@ char **split_string(char *buffer, char d)
 		cmd[k] = malloc(sizeof(char) * (len + 1));
 		if (!cmd[k])
 		{
+			fprintf(stderr, "Error: malloc failed");
 			free_argument(cmd);
-			return (NULL);
+			exit(EXIT_FAILURE);
 		}
 		for (j = 0; buffer[i] && (buffer[i] != d); i++, j++)
 			cmd[k][j] = buffer[i];
@@ -95,9 +98,9 @@ char *clean_string(char *tmp, int len)
 	int i = 0, j = 0, k = 0, t = 0;
 
 	buffer = tmp;
-	while (buffer[i] == ' ' || buffer[i] == '\t')
+	while (buffer[i] == ' ' || buffer[i] == '\t' || !buffer[i])
 		i++, k++;
-	for (t = 0; buffer[t]; t++)
+	for (t = 0; buffer[t] != '\0'; t++)
 		if (buffer[t] == '\t')
 			buffer[t] = ' ';
 	for (t = i; buffer[t]; t++)
@@ -119,7 +122,7 @@ char *clean_string(char *tmp, int len)
 		{
 			new = malloc((len - k) * sizeof(char));
 			if (!new)
-				return (NULL);
+				_malloc();
 		}
 		if (buffer[i] != '\0')
 			new[j] = buffer[i], j++, i++;

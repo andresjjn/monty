@@ -25,7 +25,7 @@ int inter(char **cmd)
 		get(command, i + 1)(&stack, arg);
 		i++;
 	}
-	free(stack);
 	free_argument(cmd);
+	free_list(stack);
 	return (0);
 }

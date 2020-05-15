@@ -12,9 +12,13 @@ int main(int argc, char const *argv[])
 
 	if (!argv[1] || argc > 2)
 	{
-		printf("USAGE: monty file\n");
-		_puts2("EXIT_FAILURE\n");
-		exit(98);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	if (strcmp(argv[1] + (strlen(argv[1]) - 2), ".m") != 0)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
 	}
 	cmd = read_file(argv[1]);
 	inter(cmd);
